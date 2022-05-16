@@ -1,25 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-
-const minABI = [
-    {
-        constant: true,
-        inputs: [{ name: "_owner", type: "address" }],
-        name: "balanceOf",
-        outputs: [{ name: "balance", type: "uint256" }],
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "symbol",
-        outputs: [{ name: "symbol", type: "string" }],
-        payable: false,
-        stateMutability: "view",
-        type: "function"
-    },
-];
-
+import minABI from '../../../abi/sample.json'
 
 
 const BalanceToken = ({ currentAccount }) => {

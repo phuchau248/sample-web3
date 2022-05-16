@@ -4,7 +4,7 @@ import { Button, Box } from '@mantine/core';
 import Web3Context from '../../context/Web3Context';
 import BalanceToken from './components/BalanceToken';
 import BalanceWallet from './components/BalanceWallet'
-
+import Transfering from './components/Transfering';
 const Metamask = ({ style }) => {
     const { currentAccount, connectWallet, loading } = useContext(Web3Context);
 
@@ -25,6 +25,9 @@ const Metamask = ({ style }) => {
                     </Box>
                     {currentAccount && currentAccount !== null && <BalanceWallet currentAccount={currentAccount} />}
                     {currentAccount && currentAccount !== null && <BalanceToken currentAccount={currentAccount} />}
+                    <div>
+                    {currentAccount && currentAccount !== null && <Transfering currentAccount={currentAccount} />}
+                    </div>
                 </>
             );
 
