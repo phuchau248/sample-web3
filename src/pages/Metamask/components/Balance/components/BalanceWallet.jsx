@@ -19,11 +19,11 @@ const BalanceWallet = ({ currentAccount }) => {
 
     const renderContent = () => {
         return (
-            <div> Balance: {balance} ETH</div>
+            <div> Balance: {balance && `${balance} ETH`}</div>
         );
     };
 
     return <div >{renderContent()}</div>;
 };
 
-export default BalanceWallet;
+export default BalanceWallet

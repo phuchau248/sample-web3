@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import minABI from '../../../abi/sample.json'
+import minABI from '../../../../../abi/sample.json'
+
+const tokenAddress = "0x13512979ADE267AB5100878E2e0f485B568328a4"; //USDT
 
 
 const BalanceToken = ({ currentAccount }) => {
     const [balance, setBalance] = useState(null);
     const [symbol, setSymbol] = useState(null);
-    const tokenAddress = "0x13512979ADE267AB5100878E2e0f485B568328a4";
 
     useEffect(() => {
         const getBalance = async () => {
@@ -34,4 +35,4 @@ const BalanceToken = ({ currentAccount }) => {
     return <div >{renderContent()}</div>;
 };
 
-export default BalanceToken;
+export default BalanceToken

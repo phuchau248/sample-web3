@@ -2,16 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Box } from '@mantine/core';
 import Web3Context from '../../context/Web3Context';
-import BalanceToken from './components/BalanceToken';
-import BalanceWallet from './components/BalanceWallet'
-import Transfering from './components/Transfering';
+import Balance from './components/Balance';
+import Transfering from './components/Transfering/';
+import { Divider, Card, Space } from 'antd'
+
 const Metamask = ({ style }) => {
     const { currentAccount, connectWallet, loading } = useContext(Web3Context);
 
     const renderContent = () => {
         if (currentAccount) {
             return (
-                <>
+                <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
                     <Box
                         sx={(theme) => ({
                             backgroundColor: theme.colors.green[2],
@@ -23,12 +24,21 @@ const Metamask = ({ style }) => {
                     >
                         Connected: {currentAccount}
                     </Box>
-                    {currentAccount && currentAccount !== null && <BalanceWallet currentAccount={currentAccount} />}
-                    {currentAccount && currentAccount !== null && <BalanceToken currentAccount={currentAccount} />}
-                    <div>
-                    {currentAccount && currentAccount !== null && <Transfering currentAccount={currentAccount} />}
-                    </div>
-                </>
+                    {currentAccount !== null && (
+                        <>
+                            <Card>
+                                <Balance currentAccount={currentAccount} />
+                                <Divider />
+                                <Transfering currentAccount={currentAccount} />
+                            </Card>
+                        </>
+                    )}
+
+
+
+
+
+                </Space>
             );
 
         } else {
