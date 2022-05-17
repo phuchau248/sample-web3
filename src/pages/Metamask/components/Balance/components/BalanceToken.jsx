@@ -11,11 +11,17 @@ const BalanceToken = ({ currentAccount }) => {
 
     useEffect(() => {
         const getBalance = async () => {
-            const myWeb3 = new Web3(window.ethereum);
-            let contract = new myWeb3.eth.Contract(minABI, tokenAddress);
-            let bal = await contract.methods.balanceOf(currentAccount).call();
-            let sym = await contract.methods.symbol().call();
-            return { bal, sym };
+            try {
+                const myWeb3 = new Web3(window.ethereum);
+                let contract = new myWeb3.eth.Contract(minABI, tokenAddress);
+                let bal = await contract.methods.balanceOf(currentAccount).call();
+                let sym = await contract.methods.symbol().call();
+                return { bal, sym };
+            }
+            catch (err) {
+                console.log(err)
+                return { bal: null, sym: null }
+            }
         }
         getBalance().then(function (result) {
             const { bal, sym } = result
