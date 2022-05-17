@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Tabs } from 'antd'
 import TransferForm from './components/TransferForm';
 import Transaction from './components/Transaction';

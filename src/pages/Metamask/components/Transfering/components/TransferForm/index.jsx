@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Web3 from 'web3';
 import minABI from '../../../../../../abi/sample.json'
-import { Input, Button, Form, Tabs, Card } from 'antd'
+import { Input, Button, Form } from 'antd'
 import BigNumber from 'bignumber.js'
-const tokenAddress = "0x13512979ADE267AB5100878E2e0f485B568328a4";
+// const tokenAddress = "0x13512979ADE267AB5100878E2e0f485B568328a4";
 
 const TransferForm = ({ transferType, currentAccount }) => {
 
@@ -51,7 +51,7 @@ const TransferForm = ({ transferType, currentAccount }) => {
     return (
         <Form
             name={transferType}
-            labelCol={{ span: 6 }}
+            labelCol={{ span: 6, offset: 1}}
             wrapperCol={{ span: 14 }}
             onFinish={transfer}
         >

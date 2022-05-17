@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Web3 from 'web3';
 
 const Transaction = ({ currentAccount }) => {
@@ -47,7 +47,7 @@ const Transaction = ({ currentAccount }) => {
         //     console.log(err)
         // }
    
-    }, [])
+    }, [currentAccount])
 
 
 

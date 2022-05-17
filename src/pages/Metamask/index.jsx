@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Button, Box } from '@mantine/core';
 import Web3Context from '../../context/Web3Context';
 import Balance from './components/Balance';
