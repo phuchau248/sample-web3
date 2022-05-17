@@ -10,10 +10,6 @@
         "@testing-library/react": "^13.2.0",
         "@testing-library/user-event": "^13.5.0",
         "antd": "^4.20.5",
-<<<<<<< HEAD
-=======
-        "big-integer": "^1.6.51",
->>>>>>> 244b1eea35956b785a94dcd211a82fd3fd2244a1
         "bignumber.js": "^9.0.2",
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
