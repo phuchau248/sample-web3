@@ -9,6 +9,7 @@ import {
 import { showNotification } from '@mantine/notifications';
 
 const Web3Context = createContext();
+const REACT_APP_CHAIN_ID = '42';
 
 export const Web3ContextProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState(null);
@@ -49,14 +50,13 @@ export const Web3ContextProvider = ({ children }) => {
     checkWallet();
   }, []);
 
-
   // check network matches contract chain id
   const checkNetwork = useCallback(async () => {
     try {
-      if (window.ethereum.networkVersion !== process.env.REACT_APP_CHAIN_ID) {
+      if (window.ethereum.networkVersion !== REACT_APP_CHAIN_ID) {
         showNotification({
           id: 'check-network',
-          title: `Make sure you're on ${process.env.REACT_APP_CHAIN_ID === '1'
+          title: `Make sure you're on ${REACT_APP_CHAIN_ID === '1'
             ? 'Ethereum Mainnet'
             : 'Kovan Testnet'
             }!`,

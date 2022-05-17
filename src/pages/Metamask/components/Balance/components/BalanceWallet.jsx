@@ -8,8 +8,7 @@ const BalanceWallet = ({ currentAccount }) => {
         const getBalance = async (address) => {
             const myWeb3 = new Web3(window.ethereum);
             try {
-                myWeb3.eth.getBalance(address)
-                    .then(result => setBalance(result / (10 ** 18)));
+                myWeb3.eth.getBalance(address).then(result => setBalance(result / (10 ** 18)));
             } catch (err) {
                 console.log(err)
             }

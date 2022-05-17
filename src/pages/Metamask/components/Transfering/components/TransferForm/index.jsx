@@ -2,27 +2,50 @@ import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import minABI from '../../../../../../abi/sample.json'
 import { Input, Button, Form, Tabs, Card } from 'antd'
+import BigNumber from 'bignumber.js'
 const tokenAddress = "0x13512979ADE267AB5100878E2e0f485B568328a4";
 
-const TransferForm = ({ transferType, currentAccount}) => {
+const TransferForm = ({ transferType, currentAccount }) => {
 
-    const send = async (data) => {
-        console.log(data)
-        const myWeb3 = new Web3(window.ethereum);
+    const sendNative = async (from, to, value) => {
         try {
-            myWeb3.eth.sendTransaction(data)
+            const myWeb3 = new Web3(window.ethereum);
+            myWeb3.eth.sendTransaction({ from: from, to: to, value: myWeb3.utils.toWei(value.toString()) })
                 .then(result => {
-                    console.log(result)
+                    console.log(result);
                 });
         } catch (err) {
-            console.log(err)
+            console.log(err);
+        }
+    }
+
+
+    const sendErc20 = async (data) => {
+        try {
+            const myWeb3 = new Web3(window.ethereum);
+            const contract = new myWeb3.eth.Contract(minABI, data.contractAddress);
+            const decimals = await contract.methods.decimals().call();
+            const amount = new BigNumber(data.value).multipliedBy(BigNumber(10).pow(decimals));
+            contract.methods.transfer(data.to, amount).send({ from: data.from })
+                .on('transactionHash', function (hash) {
+                    console.log(hash);
+                });
+            return null;
+        }
+        catch (err) {
+            console.log(err);
         }
     }
 
     const transfer = (value) => {
         //0xd9A3f6930DE4e246627710cF4D6c74f42825a0b4
         //123321123321000
-        send({ from: currentAccount, to: value.receiverAddress, value: value.amount * (10 ** 18) })
+
+        if (transferType === 'native') {
+            sendNative(currentAccount, value.receiverAddress, value.amount);
+        } else if (transferType === 'erc20') {
+            sendErc20({ from: currentAccount, to: value.receiverAddress, value: Number(value.amount), contractAddress: value.contractAddress });
+        }
     }
 
     return (

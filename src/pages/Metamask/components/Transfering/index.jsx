@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs } from 'antd'
 import TransferForm from './components/TransferForm';
-
+import Transaction from './components/Transaction';
 const Transfering = ({ currentAccount }) => {
 
     return (
@@ -13,8 +13,8 @@ const Transfering = ({ currentAccount }) => {
                 <Tabs.TabPane tab="ERC-20 Transfer" key="2">
                     <TransferForm transferType="erc20" currentAccount={currentAccount} />
                 </Tabs.TabPane>
-                <Tabs.TabPane tab="Tab 3" key="3">
-                    Content of Tab Pane 3
+                <Tabs.TabPane tab="Transaction" key="3">
+                    <Transaction currentAccount={currentAccount}/>
                 </Tabs.TabPane>
             </Tabs>
         </>
