@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import minABI from '../../../abi/sample.json'
-import { BigInt } from 'big-integer'
 const tokenAddress = "0x13512979ADE267AB5100878E2e0f485B568328a4";
 
 const Transfering = ({ currentAccount }) => {
@@ -27,9 +26,7 @@ const Transfering = ({ currentAccount }) => {
         e.preventDefault();
         console.log(receiverAddress)
         console.log(amount)
-        // send(currentAccount, receiverAddress, BigInt(amount,10))
-
-        send({ from: currentAccount, to: '0xe28a34c60606F2a9C309f8fAF6999299977377ac', value: 123321123321 })
+        send({ from: currentAccount, to: '0xd9A3f6930DE4e246627710cF4D6c74f42825a0b4', value: 123321123321000 })
     }
 
     const renderContent = () => {
