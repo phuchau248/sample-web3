@@ -7,12 +7,14 @@ const columns = [
         title: 'Balance Wallet',
         dataIndex: 'balanceWalet',
         align: 'center',
+        width: '50%',
         render: (text) => text ? <>{text.balance} <Tag>{text.symbol}</Tag></> : '-'
     },
     {
         title: 'Balance Token',
         dataIndex: 'balanceToken',
         align: 'center',
+        width: '50%',
         render: (text) => text ? <>{text.balance} <Tag>{text.symbol}</Tag></> : '-'
     },
 ];
