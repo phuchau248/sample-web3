@@ -85,4 +85,4 @@ const TransferForm = ({ transferType, currentAccount }) => {
     )
 };
 
-export default TransferForm;
+export default React.memo(TransferForm);

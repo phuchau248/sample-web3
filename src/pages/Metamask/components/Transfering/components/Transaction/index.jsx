@@ -28,7 +28,7 @@ const columns = [
     },
 ]
 
-const Transaction = ({ currentAccount }) => {
+const Transaction = ({ currentAccount, ranKey }) => {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
@@ -85,7 +85,7 @@ const Transaction = ({ currentAccount }) => {
         }
         // test2(currentAccount)
 
-    }, [currentAccount])
+    }, [currentAccount, ranKey])
 
     const renderContent = (list) => {
         return (
@@ -98,7 +98,6 @@ const Transaction = ({ currentAccount }) => {
 
     return (
         <>
-            {console.log(transactions)}
             {transactions && (
                 <div >{renderContent(transactions)}</div>
             )}
@@ -106,4 +105,4 @@ const Transaction = ({ currentAccount }) => {
     );
 };
 
-export default React.memo(Transaction)
+export default React.memo(Transaction);
