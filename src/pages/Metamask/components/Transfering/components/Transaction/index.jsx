@@ -1,39 +1,67 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import minABI from '../../../../../../abi/sample.json'
-import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import axios from 'axios';
+import { Table } from 'antd';
 
-
-const tokenAddress = "0x13512979ADE267AB5100878E2e0f485B568328a4"; //USDT
+const columns = [
+    {
+        title: 'From Address',
+        dataIndex: 'from',
+        key: 'from',
+        align: 'center',
+    },
+    {
+        title: 'To Address',
+        dataIndex: 'to',
+        key: 'to',
+        align: 'center',
+    },
+    {
+        title: 'Value',
+        dataIndex: 'value',
+        key: 'value',
+        align: 'center',
+        render: (value) => {
+            const myWeb3 = new Web3(window.ethereum);
+            return myWeb3.utils.fromWei(value)
+        }
+    },
+]
 
 const Transaction = ({ currentAccount }) => {
+    const [transactions, setTransactions] = useState([]);
+
     useEffect(() => {
-
-
-
-
-
-
-        const getTransaction = async (address) => {
+        const getTransactions = async (address) => {
             const myWeb3 = new Web3(window.ethereum);
-            // myWeb3.eth.getTransaction('0xa1b292840e6ae855b9bbe5b49e04034c024b2057097aa9702d015e501dad1f26').then(console.log)
-            let block = await myWeb3.eth.getBlock('latest');
-            myWeb3.eth.getTransactionCount(currentAccount).then(console.log)
-            console.log(block)
-            // if (block != null && block.transactions != null) {
-            //     for (let txHash of transactions) {
-            //         let tx = await myWeb3.eth.getTransaction(txHash);
-            //             //  console.log(txHash)
-            //             // console.log("from: " + tx.from.toLowerCase() + " to: " + tx.to.toLowerCase() + " value: " + tx.value);
-            //     }
-            // }
+            const currentBlock = await myWeb3.eth.getBlockNumber();
+            axios.get('http://api-kovan.etherscan.io/api', {
+                params: {
+                    module: 'account',
+                    action: 'txlist',
+                    address: address,
+                    startblock: 0,
+                    endblock: currentBlock,
+                    sort: 'asc',
+                    apikey: 'TT57AIWVJSWTYPFI5DU2821ES26PRP831X'
+                }
+            })
+                .then((response) => {
+                    if (response?.status === 200 && response?.data?.message === 'OK') {
+                        setTransactions(response?.data?.result);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         }
-        // getTransaction(currentAccount)
+
+        getTransactions(currentAccount)
 
         const test2 = async (address) => {
             const myWeb3 = new Web3(window.ethereum);
             var currentBlock = await myWeb3.eth.getBlockNumber();
-            currentBlock = 31630076
+            // currentBlock = 31630076
             console.log(currentBlock)
             var n = await myWeb3.eth.getTransactionCount(address);
             var bal = await myWeb3.eth.getBalance(address);
@@ -41,31 +69,41 @@ const Transaction = ({ currentAccount }) => {
                 try {
                     var block = await myWeb3.eth.getBlock(i, true);
                     if (block && block.transactions) {
-                        block.transactions.forEach(function (e) {
-                            if (e.from && address === e.from.toLowerCase()) {                           
-                                console.log("from: " + e.from.toLowerCase() + " to: " + e.to.toLowerCase() + " value: " + e.value);
+                        console.log(i)
+                        block.transactions.forEach((e) => {
+                            if (e.from && address === e.from.toLowerCase()) {
+                                console.log("block:" + block + "from: " + e.from.toLowerCase() + " to: " + e.to.toLowerCase() + " value: " + e.value);
                                 --n;
                             }
-                            if (e.to && address === e.to.toLowerCase()) {                             
-                                console.log("from: " + e.from.toLowerCase() + " to: " + e.to.toLowerCase() + " value: " + e.value);
+                            if (e.to && address === e.to.toLowerCase()) {
+                                console.log("block:" + block + "from: " + e.from.toLowerCase() + " to: " + e.to.toLowerCase() + " value: " + e.value);
                             }
                         });
                     }
                 } catch (e) { console.error("Error in block " + i, e); }
             }
-
         }
-        test2(currentAccount)
+        // test2(currentAccount)
 
     }, [currentAccount])
 
-    const renderContent = () => {
+    const renderContent = (list) => {
         return (
-            <></>
+            <Table
+                dataSource={list}
+                columns={columns}
+            />
         );
     };
 
-    return <div >{renderContent()}</div>;
+    return (
+        <>
+            {console.log(transactions)}
+            {transactions && (
+                <div >{renderContent(transactions)}</div>
+            )}
+        </>
+    );
 };
 
 export default React.memo(Transaction)

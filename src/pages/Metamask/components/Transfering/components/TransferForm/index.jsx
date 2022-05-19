@@ -7,10 +7,10 @@ import BigNumber from 'bignumber.js'
 
 const TransferForm = ({ transferType, currentAccount }) => {
 
-    const sendNative = async (from, to, value) => {
+    const sendNative = async (from, to, value) => { 
         try {
             const myWeb3 = new Web3(window.ethereum);
-            myWeb3.eth.sendTransaction({ from: from, to: to, value: myWeb3.utils.toWei(value.toString()) })
+            myWeb3.eth.sendTransaction({ from: from, to: to, value: myWeb3.utils.toWei(value.toString())})
                 .then(result => {
                     console.log(result);
                 });
@@ -18,7 +18,6 @@ const TransferForm = ({ transferType, currentAccount }) => {
             console.log(err);
         }
     }
-
 
     const sendErc20 = async (data) => {
         try {
