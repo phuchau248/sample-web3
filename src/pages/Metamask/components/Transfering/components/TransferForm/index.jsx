@@ -1,12 +1,8 @@
 import React from 'react';
 import Web3 from 'web3';
-import minABI from '../../../../../../abi/sample.json'
 import ABI from './abi.json'
 import { Input, Button, Form } from 'antd'
 import BigNumber from 'bignumber.js'
-
-// const tokenAddress = "0x13512979ADE267AB5100878E2e0f485B568328a4";
-const MaxUint256 = BigNumber("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 
 const TransferForm = ({ transferType, currentAccount }) => {
 
@@ -39,36 +35,7 @@ const TransferForm = ({ transferType, currentAccount }) => {
         }
     }
 
-    //  const estimateGas = async (myContract, action, params, overwrite) => {
-    //     try {
-    //       const gas = await myContract.methods[action](...params).estimateGas(
-    //         overwrite
-    //       );
-    //       return gas;
-    //     } catch (error) {
-    //       return "30000000";
-    //     }
-    //   };
-
-
-    const checkApprove = async (contractAddress, walletAddress, spender, maxAmount) => {
-        const myWeb3 = new Web3(window.ethereum);
-        const contract = new myWeb3.eth.Contract(ABI, contractAddress);
-
-        // const rs = await contract.methods.approve(spender, maxAmount).send({ from: walletAddress});
-        const rs = await contract.methods.allowance(walletAddress, spender).call();
-        // console.log(rs);
-        console.log(maxAmount.toFixed(2))
-    }
-
-    // checkApprove('0x41D645793B6E079644026b8007F9D385b4E803db', currentAccount, "0x9e20E4A16C8F58DE1E76c7fb380Cc7640A01a03f", MaxUint256)
-
-
-
-
     const transfer = (value) => {
-        //0xd9A3f6930DE4e246627710cF4D6c74f42825a0b4
-        //123321123321000
         if (transferType === 'native') {
             sendNative(currentAccount, value.receiverAddress, value.amount);
         } else if (transferType === 'erc20') {
