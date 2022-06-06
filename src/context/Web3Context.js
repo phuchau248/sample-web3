@@ -70,7 +70,7 @@ export const Web3ContextProvider = ({ children }) => {
 
   // run when current account changes
   useEffect(() => {
-    if (currentAccount) checkNetwork();
+    // if (currentAccount) checkNetwork();
   }, [currentAccount, checkNetwork]);
 
   // MetaMask popup to connect wallet

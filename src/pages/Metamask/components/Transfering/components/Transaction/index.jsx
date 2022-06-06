@@ -58,33 +58,6 @@ const Transaction = ({ currentAccount, ranKey }) => {
 
         getTransactions(currentAccount)
 
-        const test2 = async (address) => {
-            const myWeb3 = new Web3(window.ethereum);
-            var currentBlock = await myWeb3.eth.getBlockNumber();
-            // currentBlock = 31630076
-            console.log(currentBlock)
-            var n = await myWeb3.eth.getTransactionCount(address);
-            var bal = await myWeb3.eth.getBalance(address);
-            for (var i = currentBlock; i >= 0 && (n > 0 || bal > 0); --i) {
-                try {
-                    var block = await myWeb3.eth.getBlock(i, true);
-                    if (block && block.transactions) {
-                        console.log(i)
-                        block.transactions.forEach((e) => {
-                            if (e.from && address === e.from.toLowerCase()) {
-                                console.log("block:" + block + "from: " + e.from.toLowerCase() + " to: " + e.to.toLowerCase() + " value: " + e.value);
-                                --n;
-                            }
-                            if (e.to && address === e.to.toLowerCase()) {
-                                console.log("block:" + block + "from: " + e.from.toLowerCase() + " to: " + e.to.toLowerCase() + " value: " + e.value);
-                            }
-                        });
-                    }
-                } catch (e) { console.error("Error in block " + i, e); }
-            }
-        }
-        // test2(currentAccount)
-
     }, [currentAccount, ranKey])
 
     const renderContent = (list) => {

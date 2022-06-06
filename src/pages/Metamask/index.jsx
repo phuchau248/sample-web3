@@ -7,7 +7,6 @@ import { Divider, Card, Space } from 'antd'
 
 const Metamask = ({ style }) => {
     const { currentAccount, connectWallet, loading } = useContext(Web3Context);
-
     const renderContent = () => {
         if (currentAccount) {
             return (
