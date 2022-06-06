@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import ABI from './erc20.json'
 import { Input, Button, Form, Table } from 'antd'
-import BigNumber from 'bignumber.js'
 
-const MaxUint256 = BigNumber("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 const columns = [
     {
         title: 'Allowance',
