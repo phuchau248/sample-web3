@@ -2,7 +2,6 @@ import React from 'react';
 import Web3 from 'web3';
 import ABI from './abi.json'
 import { Input, Button, Form } from 'antd'
-import BigNumber from 'bignumber.js'
 
 const TransferForm = ({ transferType, currentAccount }) => {
 
@@ -23,7 +22,7 @@ const TransferForm = ({ transferType, currentAccount }) => {
             const myWeb3 = new Web3(window.ethereum);
             const contract = new myWeb3.eth.Contract(ABI, data.contractAddress);
             const decimals = await contract.methods.decimals().call();
-            const amount = new BigNumber(data.value).multipliedBy(BigNumber(10).pow(decimals));
+            const amount = data.value * (10 ** (decimals));
             contract.methods.transfer(data.to, amount).send({ from: data.from })
                 .on('transactionHash', function (hash) {
                     console.log(hash);

@@ -2,8 +2,6 @@ import React from 'react';
 import Web3 from 'web3';
 import ABI from './erc20.json'
 import { Input, Button, Form } from 'antd'
-import BigNumber from 'bignumber.js'
-
 
 const ApproveERC20 = ({ currentAccount }) => {
 
@@ -16,7 +14,7 @@ const ApproveERC20 = ({ currentAccount }) => {
     }
 
     const transfer = (value) => {
-        checkApprove(value.contractAddress, currentAccount, value.spenderAddress, BigNumber(value.amount));
+        checkApprove(value.contractAddress, currentAccount, value.spenderAddress, Number(value.amount));
     }
 
     return (
